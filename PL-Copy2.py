@@ -31,7 +31,6 @@ df.head()
 import pandas as pd
 import numpy as np
 from scipy.stats import poisson
-from IPython.display import display
 
 
 # In[ ]:
