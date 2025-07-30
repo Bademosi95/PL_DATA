@@ -1,431 +1,147 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 1,
-   "id": "81bdcfab-29da-49df-a721-556e8543defc",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import pandas as pd"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "id": "e9d0cca9-e24b-456c-8125-7951e5eb8d6c",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "df = pd.read_html('https://fbref.com/en/comps/9/Premier-League-Stats', attrs={\"id\":\"results2024-202591_home_away\"})[0]"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "id": "da39cd88-1586-4eda-870f-cd37cd31b765",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "df.columns = ['_'.join(col).strip() for col in df.columns.values]"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "id": "441277d6-6091-4996-b823-c83aaf53d7db",
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "<div>\n",
-       "<style scoped>\n",
-       "    .dataframe tbody tr th:only-of-type {\n",
-       "        vertical-align: middle;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe tbody tr th {\n",
-       "        vertical-align: top;\n",
-       "    }\n",
-       "\n",
-       "    .dataframe thead th {\n",
-       "        text-align: right;\n",
-       "    }\n",
-       "</style>\n",
-       "<table border=\"1\" class=\"dataframe\">\n",
-       "  <thead>\n",
-       "    <tr style=\"text-align: right;\">\n",
-       "      <th></th>\n",
-       "      <th>Unnamed: 0_level_0_Rk</th>\n",
-       "      <th>Unnamed: 1_level_0_Squad</th>\n",
-       "      <th>Home_MP</th>\n",
-       "      <th>Home_W</th>\n",
-       "      <th>Home_D</th>\n",
-       "      <th>Home_L</th>\n",
-       "      <th>Home_GF</th>\n",
-       "      <th>Home_GA</th>\n",
-       "      <th>Home_GD</th>\n",
-       "      <th>Home_Pts</th>\n",
-       "      <th>...</th>\n",
-       "      <th>Away_L</th>\n",
-       "      <th>Away_GF</th>\n",
-       "      <th>Away_GA</th>\n",
-       "      <th>Away_GD</th>\n",
-       "      <th>Away_Pts</th>\n",
-       "      <th>Away_Pts/MP</th>\n",
-       "      <th>Away_xG</th>\n",
-       "      <th>Away_xGA</th>\n",
-       "      <th>Away_xGD</th>\n",
-       "      <th>Away_xGD/90</th>\n",
-       "    </tr>\n",
-       "  </thead>\n",
-       "  <tbody>\n",
-       "    <tr>\n",
-       "      <th>0</th>\n",
-       "      <td>1</td>\n",
-       "      <td>Liverpool</td>\n",
-       "      <td>19</td>\n",
-       "      <td>14</td>\n",
-       "      <td>4</td>\n",
-       "      <td>1</td>\n",
-       "      <td>42</td>\n",
-       "      <td>16</td>\n",
-       "      <td>26</td>\n",
-       "      <td>46</td>\n",
-       "      <td>...</td>\n",
-       "      <td>3</td>\n",
-       "      <td>44</td>\n",
-       "      <td>25</td>\n",
-       "      <td>19</td>\n",
-       "      <td>38</td>\n",
-       "      <td>2.00</td>\n",
-       "      <td>41.7</td>\n",
-       "      <td>20.1</td>\n",
-       "      <td>21.6</td>\n",
-       "      <td>1.14</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>1</th>\n",
-       "      <td>2</td>\n",
-       "      <td>Arsenal</td>\n",
-       "      <td>19</td>\n",
-       "      <td>11</td>\n",
-       "      <td>6</td>\n",
-       "      <td>2</td>\n",
-       "      <td>35</td>\n",
-       "      <td>17</td>\n",
-       "      <td>18</td>\n",
-       "      <td>39</td>\n",
-       "      <td>...</td>\n",
-       "      <td>2</td>\n",
-       "      <td>34</td>\n",
-       "      <td>17</td>\n",
-       "      <td>17</td>\n",
-       "      <td>35</td>\n",
-       "      <td>1.84</td>\n",
-       "      <td>30.1</td>\n",
-       "      <td>20.1</td>\n",
-       "      <td>10.0</td>\n",
-       "      <td>0.52</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>2</th>\n",
-       "      <td>3</td>\n",
-       "      <td>Manchester City</td>\n",
-       "      <td>19</td>\n",
-       "      <td>13</td>\n",
-       "      <td>3</td>\n",
-       "      <td>3</td>\n",
-       "      <td>43</td>\n",
-       "      <td>23</td>\n",
-       "      <td>20</td>\n",
-       "      <td>42</td>\n",
-       "      <td>...</td>\n",
-       "      <td>6</td>\n",
-       "      <td>29</td>\n",
-       "      <td>21</td>\n",
-       "      <td>8</td>\n",
-       "      <td>29</td>\n",
-       "      <td>1.53</td>\n",
-       "      <td>30.7</td>\n",
-       "      <td>25.2</td>\n",
-       "      <td>5.5</td>\n",
-       "      <td>0.29</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>3</th>\n",
-       "      <td>4</td>\n",
-       "      <td>Chelsea</td>\n",
-       "      <td>19</td>\n",
-       "      <td>12</td>\n",
-       "      <td>5</td>\n",
-       "      <td>2</td>\n",
-       "      <td>35</td>\n",
-       "      <td>18</td>\n",
-       "      <td>17</td>\n",
-       "      <td>41</td>\n",
-       "      <td>...</td>\n",
-       "      <td>7</td>\n",
-       "      <td>29</td>\n",
-       "      <td>25</td>\n",
-       "      <td>4</td>\n",
-       "      <td>28</td>\n",
-       "      <td>1.47</td>\n",
-       "      <td>30.6</td>\n",
-       "      <td>28.3</td>\n",
-       "      <td>2.3</td>\n",
-       "      <td>0.12</td>\n",
-       "    </tr>\n",
-       "    <tr>\n",
-       "      <th>4</th>\n",
-       "      <td>5</td>\n",
-       "      <td>Newcastle Utd</td>\n",
-       "      <td>19</td>\n",
-       "      <td>12</td>\n",
-       "      <td>2</td>\n",
-       "      <td>5</td>\n",
-       "      <td>40</td>\n",
-       "      <td>20</td>\n",
-       "      <td>20</td>\n",
-       "      <td>38</td>\n",
-       "      <td>...</td>\n",
-       "      <td>7</td>\n",
-       "      <td>28</td>\n",
-       "      <td>27</td>\n",
-       "      <td>1</td>\n",
-       "      <td>28</td>\n",
-       "      <td>1.47</td>\n",
-       "      <td>30.8</td>\n",
-       "      <td>23.0</td>\n",
-       "      <td>7.8</td>\n",
-       "      <td>0.41</td>\n",
-       "    </tr>\n",
-       "  </tbody>\n",
-       "</table>\n",
-       "<p>5 rows × 28 columns</p>\n",
-       "</div>"
-      ],
-      "text/plain": [
-       "   Unnamed: 0_level_0_Rk Unnamed: 1_level_0_Squad  Home_MP  Home_W  Home_D  \\\n",
-       "0                      1                Liverpool       19      14       4   \n",
-       "1                      2                  Arsenal       19      11       6   \n",
-       "2                      3          Manchester City       19      13       3   \n",
-       "3                      4                  Chelsea       19      12       5   \n",
-       "4                      5            Newcastle Utd       19      12       2   \n",
-       "\n",
-       "   Home_L  Home_GF  Home_GA  Home_GD  Home_Pts  ...  Away_L  Away_GF  Away_GA  \\\n",
-       "0       1       42       16       26        46  ...       3       44       25   \n",
-       "1       2       35       17       18        39  ...       2       34       17   \n",
-       "2       3       43       23       20        42  ...       6       29       21   \n",
-       "3       2       35       18       17        41  ...       7       29       25   \n",
-       "4       5       40       20       20        38  ...       7       28       27   \n",
-       "\n",
-       "   Away_GD  Away_Pts  Away_Pts/MP  Away_xG  Away_xGA  Away_xGD  Away_xGD/90  \n",
-       "0       19        38         2.00     41.7      20.1      21.6         1.14  \n",
-       "1       17        35         1.84     30.1      20.1      10.0         0.52  \n",
-       "2        8        29         1.53     30.7      25.2       5.5         0.29  \n",
-       "3        4        28         1.47     30.6      28.3       2.3         0.12  \n",
-       "4        1        28         1.47     30.8      23.0       7.8         0.41  \n",
-       "\n",
-       "[5 rows x 28 columns]"
-      ]
-     },
-     "execution_count": 5,
-     "metadata": {},
-     "output_type": "execute_result"
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+import pandas as pd
+
+
+# In[2]:
+
+
+df = pd.read_html('https://fbref.com/en/comps/9/Premier-League-Stats', attrs={"id":"results2024-202591_home_away"})[0]
+
+
+# In[4]:
+
+
+df.columns = ['_'.join(col).strip() for col in df.columns.values]
+
+
+# In[5]:
+
+
+df.head()
+
+
+# In[7]:
+
+
+import pandas as pd
+import numpy as np
+from scipy.stats import poisson
+import ipywidgets as widgets
+from IPython.display import display
+
+
+# In[8]:
+
+
+# Rename for clarity (assuming second column is team names)
+df.rename(columns={df.columns[1]: "Team"}, inplace=True)
+df.set_index("Team", inplace=True)
+
+
+# In[10]:
+
+
+# --- Calculate average goals ---
+league_avg_home_goals = df["Home_GF"].sum() / df["Home_MP"].sum()
+league_avg_away_goals = df["Away_GF"].sum() / df["Away_MP"].sum()
+
+
+# In[11]:
+
+
+# --- Define Poisson-based prediction function ---
+def calculate_team_strengths(team):
+    home_attack = df.loc[team, "Home_GF"] / df.loc[team, "Home_MP"] / league_avg_home_goals
+    home_defense = df.loc[team, "Home_GA"] / df.loc[team, "Home_MP"] / league_avg_away_goals
+    away_attack = df.loc[team, "Away_GF"] / df.loc[team, "Away_MP"] / league_avg_away_goals
+    away_defense = df.loc[team, "Away_GA"] / df.loc[team, "Away_MP"] / league_avg_home_goals
+    return home_attack, home_defense, away_attack, away_defense
+
+
+# In[19]:
+
+
+def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handicap_home=0.05, injury_handicap_away=0.10):
+    h_attack, h_def, h_away_attack, h_away_def = calculate_team_strengths(home_team)
+    a_attack, a_def, a_away_attack, a_away_def = calculate_team_strengths(away_team)
+
+    # Adjusting expected goals
+    home_goals_avg = league_avg_home_goals * h_attack * a_def * (1 + home_advantage - injury_handicap_home)
+    away_goals_avg = league_avg_away_goals * a_away_attack * h_def * (1 - injury_handicap_away)
+
+    max_goals = 6
+    probs = np.zeros((max_goals, max_goals))
+
+    for i in range(max_goals):
+        for j in range(max_goals):
+            probs[i, j] = poisson.pmf(i, home_goals_avg) * poisson.pmf(j, away_goals_avg)
+            # Outcome probabilities
+    home_win_prob = np.sum(np.tril(probs, -1))
+    draw_prob = np.sum(np.diag(probs))
+    away_win_prob = np.sum(np.triu(probs, 1))
+    btts_prob = np.sum([probs[i, j] for i in range(1, max_goals) for j in range(1, max_goals)])
+
+    expected_home_goals = sum([i * poisson.pmf(i, home_goals_avg) for i in range(max_goals)])
+    expected_away_goals = sum([i * poisson.pmf(i, away_goals_avg) for i in range(max_goals)])
+
+    return {
+        "home_win": round(home_win_prob, 3),
+        "draw": round(draw_prob, 3),
+        "away_win": round(away_win_prob, 3),
+        "btts": round(btts_prob, 3),
+        "expected_home_goals": round(expected_home_goals, 2),
+        "expected_away_goals": round(expected_away_goals, 2),
+        "prob_matrix": probs
     }
-   ],
-   "source": [
-    "df.head()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 7,
-   "id": "85b9544c-0358-435e-b391-8733d331c17e",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "from scipy.stats import poisson\n",
-    "import ipywidgets as widgets\n",
-    "from IPython.display import display"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 8,
-   "id": "52f1bf73-d2d6-4843-a21d-744926ed0ad3",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# Rename for clarity (assuming second column is team names)\n",
-    "df.rename(columns={df.columns[1]: \"Team\"}, inplace=True)\n",
-    "df.set_index(\"Team\", inplace=True)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 10,
-   "id": "fd850240-28c5-47ad-975d-2196c20c0886",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# --- Calculate average goals ---\n",
-    "league_avg_home_goals = df[\"Home_GF\"].sum() / df[\"Home_MP\"].sum()\n",
-    "league_avg_away_goals = df[\"Away_GF\"].sum() / df[\"Away_MP\"].sum()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "id": "3e9390f5-1925-433b-82fc-4e90c71cd592",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# --- Define Poisson-based prediction function ---\n",
-    "def calculate_team_strengths(team):\n",
-    "    home_attack = df.loc[team, \"Home_GF\"] / df.loc[team, \"Home_MP\"] / league_avg_home_goals\n",
-    "    home_defense = df.loc[team, \"Home_GA\"] / df.loc[team, \"Home_MP\"] / league_avg_away_goals\n",
-    "    away_attack = df.loc[team, \"Away_GF\"] / df.loc[team, \"Away_MP\"] / league_avg_away_goals\n",
-    "    away_defense = df.loc[team, \"Away_GA\"] / df.loc[team, \"Away_MP\"] / league_avg_home_goals\n",
-    "    return home_attack, home_defense, away_attack, away_defense"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 19,
-   "id": "12039154-4444-43ea-bc5b-b1611d960534",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handicap_home=0.05, injury_handicap_away=0.10):\n",
-    "    h_attack, h_def, h_away_attack, h_away_def = calculate_team_strengths(home_team)\n",
-    "    a_attack, a_def, a_away_attack, a_away_def = calculate_team_strengths(away_team)\n",
-    "\n",
-    "    # Adjusting expected goals\n",
-    "    home_goals_avg = league_avg_home_goals * h_attack * a_def * (1 + home_advantage - injury_handicap_home)\n",
-    "    away_goals_avg = league_avg_away_goals * a_away_attack * h_def * (1 - injury_handicap_away)\n",
-    "\n",
-    "    max_goals = 6\n",
-    "    probs = np.zeros((max_goals, max_goals))\n",
-    "\n",
-    "    for i in range(max_goals):\n",
-    "        for j in range(max_goals):\n",
-    "            probs[i, j] = poisson.pmf(i, home_goals_avg) * poisson.pmf(j, away_goals_avg)\n",
-    "            # Outcome probabilities\n",
-    "    home_win_prob = np.sum(np.tril(probs, -1))\n",
-    "    draw_prob = np.sum(np.diag(probs))\n",
-    "    away_win_prob = np.sum(np.triu(probs, 1))\n",
-    "    btts_prob = np.sum([probs[i, j] for i in range(1, max_goals) for j in range(1, max_goals)])\n",
-    "\n",
-    "    expected_home_goals = sum([i * poisson.pmf(i, home_goals_avg) for i in range(max_goals)])\n",
-    "    expected_away_goals = sum([i * poisson.pmf(i, away_goals_avg) for i in range(max_goals)])\n",
-    "\n",
-    "    return {\n",
-    "        \"home_win\": round(home_win_prob, 3),\n",
-    "        \"draw\": round(draw_prob, 3),\n",
-    "        \"away_win\": round(away_win_prob, 3),\n",
-    "        \"btts\": round(btts_prob, 3),\n",
-    "        \"expected_home_goals\": round(expected_home_goals, 2),\n",
-    "        \"expected_away_goals\": round(expected_away_goals, 2),\n",
-    "        \"prob_matrix\": probs\n",
-    "    }"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "id": "92a19eea-b07e-45de-8a6a-d0da39dd5097",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# --- Widgets for interaction ---\n",
-    "teams = sorted(df.index.tolist())\n",
-    "\n",
-    "home_team_widget = widgets.Dropdown(options=teams, description=\"Home Team:\")\n",
-    "away_team_widget = widgets.Dropdown(options=teams, description=\"Away Team:\")\n",
-    "injury_home_widget = widgets.FloatSlider(value=0.0, min=0, max=0.3, step=0.05, description=\"Home Handicap - Injuries, Bad Form\")\n",
-    "injury_away_widget = widgets.FloatSlider(value=0.0, min=0, max=0.3, step=0.05, description=\"Away Handicap - Injuries, Bad Form\")\n",
-    "\n",
-    "run_button = widgets.Button(description=\"Run Prediction\")\n",
-    "output = widgets.Output()\n",
-    "\n",
-    "def on_run_button_click(b):\n",
-    "    with output:\n",
-    "        output.clear_output()\n",
-    "        result = poisson_prediction(\n",
-    "            home_team_widget.value,\n",
-    "            away_team_widget.value,\n",
-    "            injury_handicap_home=injury_home_widget.value,\n",
-    "            injury_handicap_away=injury_away_widget.value\n",
-    "        )\n",
-    "        print(f\"Prediction for {home_team_widget.value} vs {away_team_widget.value}:\")\n",
-    "        print(f\"Home Win Probability: {result['home_win']:.2%}\")\n",
-    "        print(f\"Draw Probability: {result['draw']:.2%}\")\n",
-    "        print(f\"Away Win Probability: {result['away_win']:.2%}\")\n",
-    "        print(f\"Both Teams To Score Probability: {result['btts']:.2%}\")\n",
-    "        print(f\"Expected Goals - {home_team_widget.value}: {result['expected_home_goals']}\")\n",
-    "        print(f\"Expected Goals - {away_team_widget.value}: {result['expected_away_goals']}\")\n",
-    "\n",
-    "run_button.on_click(on_run_button_click)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 18,
-   "id": "fff38f18-f6ff-48fe-845d-c125511c7a15",
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "application/vnd.jupyter.widget-view+json": {
-       "model_id": "36ee6b068d1549f28691122088c47d4d",
-       "version_major": 2,
-       "version_minor": 0
-      },
-      "text/plain": [
-       "VBox(children=(Dropdown(description='Home Team:', options=('Arsenal', 'Aston Villa', 'Bournemouth', 'Brentford…"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    }
-   ],
-   "source": [
-    "display(widgets.VBox([home_team_widget, away_team_widget, injury_home_widget, injury_away_widget, run_button, output]))"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "b6c584c6-fa5d-4956-967a-6a4d7dc167e1",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python [conda env:base] *",
-   "language": "python",
-   "name": "conda-base-py"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.5"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+
+
+# In[17]:
+
+
+# --- Widgets for interaction ---
+teams = sorted(df.index.tolist())
+
+home_team_widget = widgets.Dropdown(options=teams, description="Home Team:")
+away_team_widget = widgets.Dropdown(options=teams, description="Away Team:")
+injury_home_widget = widgets.FloatSlider(value=0.0, min=0, max=0.3, step=0.05, description="Home Handicap - Injuries, Bad Form")
+injury_away_widget = widgets.FloatSlider(value=0.0, min=0, max=0.3, step=0.05, description="Away Handicap - Injuries, Bad Form")
+
+run_button = widgets.Button(description="Run Prediction")
+output = widgets.Output()
+
+def on_run_button_click(b):
+    with output:
+        output.clear_output()
+        result = poisson_prediction(
+            home_team_widget.value,
+            away_team_widget.value,
+            injury_handicap_home=injury_home_widget.value,
+            injury_handicap_away=injury_away_widget.value
+        )
+        print(f"Prediction for {home_team_widget.value} vs {away_team_widget.value}:")
+        print(f"Home Win Probability: {result['home_win']:.2%}")
+        print(f"Draw Probability: {result['draw']:.2%}")
+        print(f"Away Win Probability: {result['away_win']:.2%}")
+        print(f"Both Teams To Score Probability: {result['btts']:.2%}")
+        print(f"Expected Goals - {home_team_widget.value}: {result['expected_home_goals']}")
+        print(f"Expected Goals - {away_team_widget.value}: {result['expected_away_goals']}")
+
+run_button.on_click(on_run_button_click)
+
+
+# In[18]:
+
+
+display(widgets.VBox([home_team_widget, away_team_widget, injury_home_widget, injury_away_widget, run_button, output]))
+
+
+# In[ ]:
+
+
+
+
