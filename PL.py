@@ -7,25 +7,25 @@
 import pandas as pd
 
 
-# In[2]:
+# In[56]:
 
 
 df = pd.read_html('https://fbref.com/en/comps/9/Premier-League-Stats', attrs={"id":"results2024-202591_home_away"})[0]
 
 
-# In[4]:
+# In[57]:
 
 
 df.columns = ['_'.join(col).strip() for col in df.columns.values]
 
 
-# In[5]:
+# In[58]:
 
 
 df.head()
 
 
-# In[7]:
+# In[59]:
 
 
 import pandas as pd
@@ -35,7 +35,7 @@ import ipywidgets as widgets
 from IPython.display import display
 
 
-# In[8]:
+# In[ ]:
 
 
 # Rename for clarity (assuming second column is team names)
@@ -51,7 +51,7 @@ league_avg_home_goals = df["Home_GF"].sum() / df["Home_MP"].sum()
 league_avg_away_goals = df["Away_GF"].sum() / df["Away_MP"].sum()
 
 
-# In[11]:
+# In[65]:
 
 
 # --- Define Poisson-based prediction function ---
@@ -63,7 +63,7 @@ def calculate_team_strengths(team):
     return home_attack, home_defense, away_attack, away_defense
 
 
-# In[19]:
+# In[66]:
 
 
 def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handicap_home=0.05, injury_handicap_away=0.10):
@@ -100,7 +100,7 @@ def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handica
     }
 
 
-# In[17]:
+# In[85]:
 
 
 # --- Widgets for interaction ---
@@ -134,7 +134,7 @@ def on_run_button_click(b):
 run_button.on_click(on_run_button_click)
 
 
-# In[18]:
+# In[86]:
 
 
 display(widgets.VBox([home_team_widget, away_team_widget, injury_home_widget, injury_away_widget, run_button, output]))
