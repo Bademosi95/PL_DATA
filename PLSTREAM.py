@@ -2,12 +2,6 @@ import streamlit as st
 import pandas as pd
 from PL import poisson_prediction, load_team_data  # Ensure your model logic is in model.py
 
-
-# Optional: Preprocess or cache if needed
-@st.cache_data
-def get_teams():
-    return df.index.tolist()
-
 teams = get_teams()
 
 # --- Streamlit UI ---
@@ -15,8 +9,7 @@ st.set_page_config(page_title="Football Match Predictor", layout="centered")
 st.title("⚽ Football Match Outcome Predictor")
 
 st.markdown("""
-Select two teams and adjust real-world factors like home advantage or injuries to simulate match outcomes
-using a dynamic Poisson model.
+Select two teams and adjust real-world factors like home advantage or injuries to simulate match outcomes.
 """)
 
 col1, col2 = st.columns(2)
