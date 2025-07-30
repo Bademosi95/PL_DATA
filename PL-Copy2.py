@@ -33,6 +33,7 @@ import numpy as np
 from scipy.stats import poisson
 
 
+
 # In[ ]:
 
 
@@ -101,43 +102,30 @@ def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handica
 # In[85]:
 
 
-# --- Widgets for interaction ---
-teams = sorted(df.index.tolist())
+if __name__ == "__main__":
+    teams = sorted(df.index.tolist())
+    print("Available teams:")
+    print(", ".join(teams))
 
-home_team_widget = input("Home Team:")
-away_team_widget = input("Away Team:")
-injury_home_widget = input(value=0.0, min=0, max=0.3, step=0.05, description="Home Handicap - Injuries, Bad Form")
-injury_away_widget = input(value=0.0, min=0, max=0.3, step=0.05, description="Away Handicap - Injuries, Bad Form")
+    home_team = input("Enter Home Team: ")
+    away_team = input("Enter Away Team: ")
+    injury_home = float(input("Home Handicap (0.0 to 0.3): "))
+    injury_away = float(input("Away Handicap (0.0 to 0.3): "))
 
-output = widgets.Output()
-
-def on_run_button_click(b):
-    with output:
-        output.clear_output()
-        result = poisson_prediction(
-            home_team_widget.value,
-            away_team_widget.value,
-            injury_handicap_home=injury_home_widget.value,
-            injury_handicap_away=injury_away_widget.value
-        )
-        print(f"Prediction for {home_team_widget.value} vs {away_team_widget.value}:")
+    if home_team not in teams or away_team not in teams:
+        print("Invalid team name. Please check and try again.")
+    elif home_team == away_team:
+        print("Teams must be different.")
+    else:
+        result = poisson_prediction(home_team, away_team, injury_handicap_home=injury_home, injury_handicap_away=injury_away)
+        print(f"\nPrediction for {home_team} vs {away_team}:")
         print(f"Home Win Probability: {result['home_win']:.2%}")
         print(f"Draw Probability: {result['draw']:.2%}")
         print(f"Away Win Probability: {result['away_win']:.2%}")
         print(f"Both Teams To Score Probability: {result['btts']:.2%}")
-        print(f"Expected Goals - {home_team_widget.value}: {result['expected_home_goals']}")
-        print(f"Expected Goals - {away_team_widget.value}: {result['expected_away_goals']}")
+        print(f"Expected Goals - {home_team}: {result['expected_home_goals']}")
+        print(f"Expected Goals - {away_team}: {result['expected_away_goals']}")
 
-run_button.on_click(on_run_button_click)
-
-
-# In[86]:
-
-
-display(widgets.VBox([home_team_widget, away_team_widget, injury_home_widget, injury_away_widget, run_button, output]))
-
-
-# In[ ]:
 
 
 
