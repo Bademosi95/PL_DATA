@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from scipy.stats import poisson
-import ipywidgets as widgets
-from IPython.display import display
 from PL import df, poisson_prediction  # Ensure your model logic is in model.py
 
 # --- Streamlit UI ---
