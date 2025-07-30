@@ -3,5 +3,3 @@ pandas
 numpy
 scipy
 lxml
-ipywidgets
-IPython.display
