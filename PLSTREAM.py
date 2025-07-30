@@ -5,7 +5,7 @@ from scipy.stats import poisson
 from PL import df, poisson_prediction  # Ensure your model logic is in model.py
 
 # --- Streamlit UI ---
-st.set_page_config(page_title="Football Match Predictor", layout="centered")
+st.set_page_config(page_title="KB Football Match Predictor", layout="centered")
 st.title("⚽ Football Match Outcome Predictor")
 
 st.markdown("""
@@ -21,9 +21,9 @@ with col2:
     away_team = st.selectbox("Away Team", [team for team in teams if team != home_team])
 
 st.subheader("Adjust Match Conditions")
-home_advantage = st.slider("Home Advantage (Strong Home Form)", 0.0, 0.5, 0.1, step=0.05)
-injury_handicap_home = st.slider("Home Team Handicap (e.g. Injuries, Form)", 0.0, 1.0, 0.0, step=0.1)
-injury_handicap_away = st.slider("Away Team Handicap (e.g. Injuries, Form)", 0.0, 1.0, 0.0, step=0.1)
+home_advantage = st.slider("Home Advantage (Strong Home Form)", 0.0, 0.25, 0.1, step=0.05)
+injury_handicap_home = st.slider("Home Team Handicap (e.g. Injuries, Bad Form)", 0.0, 0.5, 0.0, step=0.05)
+injury_handicap_away = st.slider("Away Team Handicap (e.g. Injuries, Bad Form)", 0.0, 0.5, 0.0, step=0.05)
 
 if st.button("Predict Outcome"):
     result = poisson_prediction(
