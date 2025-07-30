@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from scipy.stats import poisson
-from PL import df, poisson_prediction  # Ensure your model logic is in model.py
+from PL-Copy2 import df, poisson_prediction  # Ensure your model logic is in model.py
 
 # --- Streamlit UI ---
 st.set_page_config(page_title="Football Match Predictor", layout="centered")

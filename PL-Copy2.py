@@ -102,31 +102,55 @@ def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handica
 # In[85]:
 
 
-if __name__ == "__main__":
-    teams = sorted(df.index.tolist())
-    print("Available teams:")
-    print(", ".join(teams))
+teams = sorted(df.index.tolist())
 
-    home_team = input("Enter Home Team: ")
-    away_team = input("Enter Away Team: ")
-    injury_home = float(input("Home Handicap (0.0 to 0.3): "))
-    injury_away = float(input("Away Handicap (0.0 to 0.3): "))
+# Display team options for user selection
+print("Available Teams:")
+for i, team in enumerate(teams):
+    print(f"{i}: {team}")
 
-    if home_team not in teams or away_team not in teams:
-        print("Invalid team name. Please check and try again.")
-    elif home_team == away_team:
-        print("Teams must be different.")
-    else:
-        result = poisson_prediction(home_team, away_team, injury_handicap_home=injury_home, injury_handicap_away=injury_away)
-        print(f"\nPrediction for {home_team} vs {away_team}:")
-        print(f"Home Win Probability: {result['home_win']:.2%}")
-        print(f"Draw Probability: {result['draw']:.2%}")
-        print(f"Away Win Probability: {result['away_win']:.2%}")
-        print(f"Both Teams To Score Probability: {result['btts']:.2%}")
-        print(f"Expected Goals - {home_team}: {result['expected_home_goals']}")
-        print(f"Expected Goals - {away_team}: {result['expected_away_goals']}")
+# Get home team
+home_index = int(input("Enter the number for the Home Team: "))
+home_team = teams[home_index]
 
+# Get away team
+away_index = int(input("Enter the number for the Away Team: "))
+away_team = teams[away_index]
 
+# Get injury handicaps
+while True:
+    try:
+        injury_handicap_home = float(input("Enter Home Handicap (Injuries/Bad Form) [0.0 - 0.3]: "))
+        if 0.0 <= injury_handicap_home <= 0.3:
+            break
+        else:
+            print("Value must be between 0.0 and 0.3")
+    except ValueError:
+        print("Please enter a valid number")
 
+while True:
+    try:
+        injury_handicap_away = float(input("Enter Away Handicap (Injuries/Bad Form) [0.0 - 0.3]: "))
+        if 0.0 <= injury_handicap_away <= 0.3:
+            break
+        else:
+            print("Value must be between 0.0 and 0.3")
+    except ValueError:
+        print("Please enter a valid number")
 
+# Run prediction
+result = poisson_prediction(
+    home_team,
+    away_team,
+    injury_handicap_home=injury_handicap_home,
+    injury_handicap_away=injury_handicap_away
+)
 
+# Display results
+print(f"\nPrediction for {home_team} vs {away_team}:")
+print(f"Home Win Probability: {result['home_win']:.2%}")
+print(f"Draw Probability: {result['draw']:.2%}")
+print(f"Away Win Probability: {result['away_win']:.2%}")
+print(f"Both Teams To Score Probability: {result['btts']:.2%}")
+print(f"Expected Goals - {home_team}: {result['expected_home_goals']}")
+print(f"Expected Goals - {away_team}: {result['expected_away_goals']}")
