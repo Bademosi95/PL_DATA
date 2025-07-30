@@ -104,12 +104,11 @@ def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handica
 # --- Widgets for interaction ---
 teams = sorted(df.index.tolist())
 
-home_team_widget = widgets.Dropdown(options=teams, description="Home Team:")
-away_team_widget = widgets.Dropdown(options=teams, description="Away Team:")
-injury_home_widget = widgets.FloatSlider(value=0.0, min=0, max=0.3, step=0.05, description="Home Handicap - Injuries, Bad Form")
-injury_away_widget = widgets.FloatSlider(value=0.0, min=0, max=0.3, step=0.05, description="Away Handicap - Injuries, Bad Form")
+home_team_widget = input(options=teams, description="Home Team:")
+away_team_widget = input(options=teams, description="Away Team:")
+injury_home_widget = input(value=0.0, min=0, max=0.3, step=0.05, description="Home Handicap - Injuries, Bad Form")
+injury_away_widget = input(value=0.0, min=0, max=0.3, step=0.05, description="Away Handicap - Injuries, Bad Form")
 
-run_button = widgets.Button(description="Run Prediction")
 output = widgets.Output()
 
 def on_run_button_click(b):
