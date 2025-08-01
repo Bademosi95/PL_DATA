@@ -74,7 +74,7 @@ def poisson_prediction(home_team, away_team, home_advantage=0.05, injury_handica
     home_goals_avg = league_avg_home_goals * h_attack * a_def * (1 + home_advantage - injury_handicap_home)
     away_goals_avg = league_avg_away_goals * a_away_attack * h_def * (1 - injury_handicap_away)
 
-    max_goals = 6
+    max_goals = 8
     probs = np.zeros((max_goals, max_goals))
 
     for i in range(max_goals):
