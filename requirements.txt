@@ -4,3 +4,4 @@ numpy
 ipywidgets
 scipy
 lxml
+html5lib
