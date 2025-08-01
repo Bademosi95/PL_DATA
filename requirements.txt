@@ -5,3 +5,4 @@ ipywidgets
 scipy
 lxml
 html5lib
+beautifulsoup4
