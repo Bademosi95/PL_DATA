@@ -10,7 +10,7 @@ import pandas as pd
 # In[56]:
 
 
-df = pd.read_html('https://fbref.com/en/comps/9/Premier-League-Stats', attrs={"id":"results2024-202591_home_away"})[0]
+df = pd.read_html('https://fbref.com/en/comps/9/2024-2025/2024-2025-Premier-League-Stats', attrs={"id":"results2024-202591_home_away"})[0]
 
 
 # In[57]:
